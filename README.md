@@ -1,135 +1,109 @@
+## Nabil Paribahan Web Scraper
 
-```markdown
-# Nabil Paribahan Route & Trip Scraper
+This project is a Python-based automated scraper that extracts all available bus routes and trip details from the Nabil Paribahan website. The scraper uses Selenium to handle dynamic content such as modals, dropdowns, and Next Day schedules, and uses the Requests + lxml libraries to collect route links from the homepage.
 
-A Python-based automated scraper that extracts all bus routes and trip information from the official Nabil Paribahan website.  
-The script uses Selenium and Requests to handle dynamic content, modals, dropdowns, and "Next Day" schedules that load only after interaction.
+## Overview
 
----
+The scraper performs the following tasks:
+
+1. Collects all route URLs from the homepage.
+2. Loads each route page and extracts all available trip data.
+3. Detects when no trips are available and clicks the "Next Day" button to load the next day’s schedule.
+4. Opens boarding point and dropping point modals and extracts all available points.
+5. Saves all scraped data into JSON format.
+6. Creates a checkpoint file after each route so data is never lost.
 
 ## Features
 
-- Extracts all available routes from the homepage.
-- Scrapes trip data including:
-  - Operator  
-  - Bus type  
-  - Coach number  
-  - Fare  
-  - Starting & ending points  
-  - Boarding points (from modal)  
-  - Dropping points (from modal)
-- Automatically clicks “Next Day” when no trips are available.
-- Handles page load retries and network interruptions.
-- Saves scraped data into JSON files.
-- Creates a checkpoint file after each route to prevent data loss.
+* Full route extraction
+* Trip details collection (operator, bus type, coach, fare)
+* Boarding point extraction from modal
+* Dropping point extraction from modal
+* Automatic retry for page load failures
+* Works with dynamic JavaScript-loaded elements
+* Creates two output files:
 
----
+  * nabil_trips.json         Final dataset
+  * nabil_checkpoint.json    Automatic backup after each route
 
-## Project Structure
+## Installation
 
-```
+1. Install dependencies using:
 
-.
-├── main.py                # Main scraper
-├── requirements.txt       # Dependencies
-├── README.md              # Documentation
-├── nabil_checkpoint.json  # Auto-saved data after each route (generated)
-└── nabil_trips.json       # Final output (generated)
+   pip install -r requirements.txt
 
-```
+2. Install Google Chrome.
 
----
+3. Download ChromeDriver matching your Chrome version from:
+   [https://chromedriver.chromium.org/downloads](https://chromedriver.chromium.org/downloads)
 
-## Requirements
+4. Place ChromeDriver either:
 
-Install dependencies:
+   * In the same folder as main.py, or
+   * Added to system PATH
 
-```
+## Usage
 
-pip install -r requirements.txt
-
-```
-
-You must have:
-
-- Python 3.8+
-- Google Chrome installed
-- ChromeDriver matching your Chrome version  
-  Download: https://chromedriver.chromium.org/downloads
-
-Ensure `chromedriver` is in PATH or in the same folder as `main.py`.
-
----
-
-## How to Run
-
-Simply run:
-
-```
+Run the scraper using:
 
 python main.py
 
-```
-
-When complete, the results are saved to:
-
-```
+When the scraper finishes, your final data will be saved in:
 
 nabil_trips.json
 
-```
-
-A checkpoint file is updated after each route:
-
-```
+A checkpoint file is also saved after each route:
 
 nabil_checkpoint.json
 
-````
-
----
-
 ## Output Format
 
-Each trip entry looks like this:
+The output is a JSON list of objects. Each object contains:
 
-```json
+* URL
+* Operator
+* Bus Type
+* Route
+* Coach Number
+* Starting Point
+* Ending Point
+* Fare
+* Boarding Points (list)
+* Dropping Points (list)
+
+Example:
+
 {
-    "URL": "https://www.nabilparibahan.com/booking/bus/search?fromcity=dhaka&tocity=panchagarh",
-    "Operator": "Nabil Paribahan",
-    "Bus Type": "AC",
-    "Route": "Dhaka → Panchagarh",
-    "Coach": "37",
-    "Starting Point": "Gabtoli",
-    "Ending Point": "Panchagarh",
-    "Fare": "1200",
-    "Boarding Points": [
-        "Gabtoli",
-        "Kallyanpur",
-        "Shyamoli"
-    ],
-    "Dropping Points": [
-        "Rangpur",
-        "Thakurgaon",
-        "Panchagarh"
-    ]
+"URL": "[https://www.nabilparibahan.com/booking/bus/search?fromcity=dhaka&tocity=panchagarh](https://www.nabilparibahan.com/booking/bus/search?fromcity=dhaka&tocity=panchagarh)",
+"Operator": "Nabil Paribahan",
+"Bus Type": "AC",
+"Route": "Dhaka → Panchagarh",
+"Coach": "37",
+"Starting Point": "Gabtoli",
+"Ending Point": "Panchagarh",
+"Fare": "1200",
+"Boarding Points": ["Gabtoli", "Kallyanpur", "Shyamoli"],
+"Dropping Points": ["Rangpur", "Thakurgaon", "Panchagarh"]
 }
-````
 
----
+## Project Structure
+
+main.py
+README
+requirements.txt
+nabil_checkpoint.json   (generated)
+nabil_trips.json        (generated)
 
 ## Notes
 
-* If the site fails to load, the script retries automatically.
-* If no trips are found, the scraper attempts to load “Next Day” schedule.
-* Boarding and dropping points are extracted from modal popups that require interaction.
-
----
+* The scraper includes retries if a page fails to load.
+* Boarding and dropping points are extracted from modals that require interaction.
+* Clicking “Next Day” ensures the scraper continues even when no same-day trips exist.
 
 ## Disclaimer
 
-This project is for educational and research purposes only.
-Scraping websites may violate terms of service. Use responsibly.
+This project is for educational and research purposes. Scraping websites may violate terms of service. Use responsibly.
 
-```
 
+
+Just tell me — I can rewrite it in any style you want.
