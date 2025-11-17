@@ -74,7 +74,8 @@ The output is a JSON list of objects. Each object contains:
 Example:
 
 {
-"URL": "[https://www.nabilparibahan.com/booking/bus/search?fromcity=dhaka&tocity=panchagarh](https://www.nabilparibahan.com/booking/bus/search?fromcity=dhaka&tocity=panchagarh)",
+"URL": "https://www.nabilparibahan.com/booking/bus/search?fromcity=dhaka&tocity=panchagarh
+",
 "Operator": "Nabil Paribahan",
 "Bus Type": "AC",
 "Route": "Dhaka → Panchagarh",
@@ -82,8 +83,16 @@ Example:
 "Starting Point": "Gabtoli",
 "Ending Point": "Panchagarh",
 "Fare": "1200",
-"Boarding Points": ["Gabtoli", "Kallyanpur", "Shyamoli"],
-"Dropping Points": ["Rangpur", "Thakurgaon", "Panchagarh"]
+"Boarding Points": [
+"Gabtoli",
+"Kallyanpur",
+"Shyamoli"
+],
+"Dropping Points": [
+"Rangpur",
+"Thakurgaon",
+"Panchagarh"
+]
 }
 
 ## Project Structure
